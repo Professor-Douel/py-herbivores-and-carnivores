@@ -11,7 +11,8 @@ class Animal:
         Animal.alive.append(self)
 
     def __repr__(self) -> str:
-        return (f"{{Name: {self.name}, Health: {self.health}, \n"
+        return (f"{{Name: {self.name}, "
+                f"Health: {self.health}, "
                 f"Hidden: {self.hidden}}}")
 
     @classmethod
@@ -33,7 +34,8 @@ class Herbivore(Animal):
 
 
 class Carnivore(Animal):
-    def bite(self, other: "Animal") -> None:
+    @staticmethod
+    def bite(other: "Animal") -> None:
         if isinstance(other, Herbivore) and not other.hidden:
             other.health -= 50
             if other.health <= 0:
