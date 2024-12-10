@@ -1,9 +1,11 @@
 class Animal:
     alive = []
 
-    def __init__(self,
-                 name: str,
-                 health: int = 100) -> None:
+    def __init__(
+            self,
+            name: str,
+            health: int = 100
+    ) -> None:
         self.name = name
         self.health = health
         self.hidden = False
@@ -13,18 +15,6 @@ class Animal:
         return (f"{{Name: {self.name}, "
                 f"Health: {self.health}, "
                 f"Hidden: {self.hidden}}}")
-
-    @classmethod
-    def remove_dead(cls) -> None:
-        cls.alive = [animal for animal in cls.alive if animal.health > 0]
-
-    @classmethod
-    def get_alive_repr(cls) -> str:
-        return str([repr(animal) for animal in cls.alive])
-
-    @classmethod
-    def get_alive(cls) -> list:
-        return cls.alive
 
 
 class Herbivore(Animal):
@@ -38,5 +28,4 @@ class Carnivore(Animal):
         if isinstance(target, Herbivore) and not target.hidden:
             target.health -= 50
             if target.health <= 0:
-                target.health = 0
                 Animal.alive.remove(target)
