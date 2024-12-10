@@ -3,8 +3,7 @@ class Animal:
 
     def __init__(self,
                  name: str,
-                 health: int = 100
-                 ) -> None:
+                 health: int = 100) -> None:
         self.name = name
         self.health = health
         self.hidden = False
@@ -20,11 +19,11 @@ class Animal:
         cls.alive = [animal for animal in cls.alive if animal.health > 0]
 
     @classmethod
-    def __str__(cls) -> str:
+    def get_alive_repr(cls) -> str:
         return str([repr(animal) for animal in cls.alive])
 
     @classmethod
-    def print_alive(cls) -> list:
+    def get_alive(cls) -> list:
         return cls.alive
 
 
@@ -35,9 +34,9 @@ class Herbivore(Animal):
 
 class Carnivore(Animal):
     @staticmethod
-    def bite(other: "Animal") -> None:
-        if isinstance(other, Herbivore) and not other.hidden:
-            other.health -= 50
-            if other.health <= 0:
-                other.health = 0
-                Animal.remove_dead()
+    def bite(target: Animal) -> None:
+        if isinstance(target, Herbivore) and not target.hidden:
+            target.health -= 50
+            if target.health <= 0:
+                target.health = 0
+                Animal.alive.remove(target)
